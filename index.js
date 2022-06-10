@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
 morgan.token('postData', (req, res) => {
-  if (req.method === 'POST') {
+  if (req.method === 'POST' || req.method === 'PUT') {
     return JSON.stringify(req.body)
   } else {
     return ''
@@ -87,6 +87,14 @@ app.post('/api/notes', (request, response) => {
   notes = notes.concat(note);
 
   response.json(note)
+})
+
+app.put('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const newNote = request.body;
+  notes = notes.map(n => n.id !== id ? n : newNote)
+  console.log(notes);
+  response.json(newNote);
 })
 
 const unknownEndpoint = (request, response) => {
