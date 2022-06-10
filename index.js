@@ -1,7 +1,13 @@
+require('dotenv').config();
 const express = require('express');
+const Note = require('./models/note');
+
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
+
+
+app.use(express.json());
 morgan.token('postData', (req, res) => {
   if (req.method === 'POST' || req.method === 'PUT') {
     return JSON.stringify(req.body)
@@ -10,31 +16,30 @@ morgan.token('postData', (req, res) => {
   }
 })
 
-app.use(express.json());
 app.use(morgan(':method :url :status :response-time ms :postData'));
 app.use(express.static('build'));
 app.use(cors());
 
-let notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    date: "2022-05-30T17:30:31.098Z",
-    important: true
-  },
-  {
-    id: 2,
-    content: "Browser can execute only Javascript",
-    date: "2022-05-30T18:39:34.091Z",
-    important: false
-  },
-  {
-    id: 3,
-    content: "GET and POST are the most important methods of HTTP protocol",
-    date: "2022-05-30T19:20:14.298Z",
-    important: true
-  }
-]
+// let notes = [
+//   {
+//     id: 1,
+//     content: "HTML is easy",
+//     date: "2022-05-30T17:30:31.098Z",
+//     important: true
+//   },
+//   {
+//     id: 2,
+//     content: "Browser can execute only Javascript",
+//     date: "2022-05-30T18:39:34.091Z",
+//     important: false
+//   },
+//   {
+//     id: 3,
+//     content: "GET and POST are the most important methods of HTTP protocol",
+//     date: "2022-05-30T19:20:14.298Z",
+//     important: true
+//   }
+// ]
 
 const generateId = () => {
   const maxId = notes.length > 0
@@ -49,7 +54,12 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes);
+  // response.json(notes);
+  Note
+    .find({})
+    .then(notes => {
+      response.json(notes)
+    })
 })
 
 app.get('/api/notes/:id', (request, response) => {
