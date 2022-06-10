@@ -3,7 +3,7 @@ const express = require('express');
 const Note = require('./models/note');
 
 const morgan = require('morgan');
-// const cors = require('cors');
+const cors = require('cors');
 const app = express();
 
 
