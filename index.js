@@ -12,7 +12,8 @@ morgan.token('postData', (req, res) => {
 
 app.use(express.json());
 app.use(morgan(':method :url :status :response-time ms :postData'));
-app.use(cors())
+app.use(express.static('build'));
+app.use(cors());
 
 let notes = [
   {
