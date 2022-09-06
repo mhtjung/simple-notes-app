@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJyb2RyaWd1ZXoiLCJpZCI6IjYyYWI4OTAzNjBlN2I3MDA0YjJhZTBiMiIsImlhdCI6MTY1NTQxMjI5OX0.DFYdK_ZkrwS5SE0SwA6z4jVFOoOEluVKUBRZ_ZrPqkE
+
+{
+  "content": "I'm gonna build my own theme park",
+  "important": true,
+  "userId": "62ab890360e7b7004b2ae0b2"
+}
